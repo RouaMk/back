@@ -1,4 +1,4 @@
-import {IsNotEmpty, IsEmail, MaxLength, IsString, IsNumber, isURL,} from 'class-validator';
+import {IsNotEmpty, IsEmail, MaxLength, IsString, IsNumber, isURL, IsOptional,} from 'class-validator';
 import { Exclude,Expose,Type,} from 'class-transformer';
 
 export class FormDto {
@@ -27,10 +27,13 @@ export class FormDto {
   @IsNumber()
   phoneNum: string
 
-
+  @IsString()
+  description: string 
+  
   @IsNumber()
   cost: string 
 
+  @IsOptional()
   image:string //for now because it will be an image api
 
   meeting_date: Date 
