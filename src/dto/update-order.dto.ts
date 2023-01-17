@@ -31,5 +31,5 @@ export class UpdateOrderDto {
 
     @IsOptional()
     @IsEnum(Status)
-    status: Status
+    status: string 
   }

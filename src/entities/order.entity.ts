@@ -1,20 +1,34 @@
+import { OneToMany, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Status } from 'src/enum/status.enum';
 
+@Entity('order')
 export class Order {
 
-    orderId: string; //unique and automatically generated  
+    @PrimaryGeneratedColumn()
+    orderId: number;   
 
+    @Column()
     description: string 
 
+    @Column()
     budget: string  
 
-    image: string //for now because it will be an image api
+    @Column()
+    image: string //temporarly because it will be an image api
 
+    @Column()
     cost: string  
 
+    @Column()
     meeting_date: string
 
+    @Column()
     meeting_link: string
 
-    status: Status
+    @Column(
+      {type: 'enum',
+      enum: Status ,
+      default: Status.DEFAULT}
+    )
+    status: string
   }
