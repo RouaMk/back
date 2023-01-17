@@ -11,11 +11,7 @@ export class OrderDto {
   @Exclude()
   customerId: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(255)
-  @Expose()
-  name: string;
+
 
   @IsEmail()
   @IsNotEmpty()
@@ -36,7 +32,7 @@ export class OrderDto {
   @IsOptional()
   image:string //for now because it will be an image api
 
-  meeting_date: Date 
+  meeting_date: string 
 
   meeting_link: string
 }
