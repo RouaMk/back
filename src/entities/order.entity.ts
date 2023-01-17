@@ -1,14 +1,20 @@
-import { State } from 'src/enum/state.enum';
+import { Status } from 'src/enum/status.enum';
 
 export class Order {
 
-    orderId: string;  
-    email: string;
-    phoneNum: string  
+    orderId: string; //unique and automatically generated  
+
     description: string 
-    cost: string   
+
+    budget: string  
+
     image: string //for now because it will be an image api
+
+    cost: string  
+
     meeting_date: string
+
     meeting_link: string
-    state: State
+
+    status: Status
   }

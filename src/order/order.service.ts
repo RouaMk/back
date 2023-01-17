@@ -1,57 +1,40 @@
 import { Body } from '@nestjs/common';
-import { OrderDto } from 'src/dto/order.dto';
+import { AddOrderDto } from 'src/dto/add-order.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UpdateOrderDto } from 'src/dto/update-order.dto';
 import { Injectable } from '@nestjs/common';
 import { Order } from 'src/entities/order.entity';
+import { Status } from 'src/enum/status.enum';
 
 @Injectable()
 export class OrderService {
 
-    orders: Order[]=[];
-
- 
-   getOrders() : Order[]{
-      return this.orders ;
-   }
-
-
-
-    submitForm(orderData: OrderDto): Order {
-
-    const { 
-        email, 
-        phoneNum ,  
-        description,
-        cost,  
-        image,
-        meeting_date, 
-        meeting_link, state} = orderData ;
-
-        let orderId;
-        if (this.orders.length) {
-           orderId = this.orders[this.orders.length - 1].orderId + 1;
-        } else {
-           orderId = 1;
-        }
-           
-     const order ={
-   
-        orderId , 
-        email, 
-        phoneNum ,  
-        description,
-        cost,  
-        image,
-        meeting_date, 
-        meeting_link,
-        state
-     }
-
-
-     this.orders.push(order);
-       return order ; 
+    constructor(
+      @InjectRepository(Order)
+      private orderRepository : Repository<Order> ,
+    ){}
     
+    
+    async submitOrder(order: AddOrderDto): Promise<Order>{
 
-      }
-        
+      const newOrder =this.orderRepository.create(order);
+      await this.orderRepository.save(newOrder);
+      return newOrder;
+    }
 
-}
+
+    async viewOrder():Promise<Order[]>{ // (user)
+      return await this.orderRepository.find() ; // ({user})
+
+    }
+
+    async updateOrder( updateCriteria, order :  UpdateOrderDto){
+      return await this.orderRepository.update(updateCriteria, order);
+    }
+   
+
+    }
+
+   
+

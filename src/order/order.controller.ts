@@ -1,8 +1,9 @@
-import { Controller, Post, Body , Get , Query, Put ,Delete } from '@nestjs/common';
-import { OrderDto } from 'src/dto/order.dto';
-import { GetPaginatedOrderDto } from 'src/dto/getPaginatedOrder.dto';
+import { Controller, Post, Body , Get , Query, Put ,Delete, Patch } from '@nestjs/common';
+import { AddOrderDto } from 'src/dto/add-order.dto';
+import { UpdateOrderDto } from 'src/dto/update-order.dto';
 import { OrderService } from './order.service';
 import { Order } from 'src/entities/order.entity';
+import { Param } from '@nestjs/common/decorators';
 
 
 
@@ -14,37 +15,33 @@ export class OrderController {
   ) {}
 
 
+  @Post()
+  async submitOrder(@Body() addOrderDto : AddOrderDto) : Promise<Order>{
+   return await this.orderService.submitOrder(addOrderDto);
+  }
 
-@Post()
-  submitForm(@Body() orderData: OrderDto) : Order {   
-     return this.orderService.submitForm(orderData);
-     console.log("ya ilehi");
-     
-    }
-    
-@Get()
-    getOrders(
-      @Query() mesQueryParams: GetPaginatedOrderDto,
-    ): Order[] {
-      return this.orderService.getOrders();
-    }
+  // liste des commandes
+  @Get() 
+  async viewOrder()// ( @User() user )
+   : Promise<Order[]>{
+     return await this.orderService.viewOrder(); //(user)
+  }
 
 
-@Get('/:orderId')
-    getOrdersById(
-      @Query() mesQueryParams: GetPaginatedOrderDto,
-    ): Order[] {
-      return this.orderService.getOrders();
-    }    
   
-@Put()
+  @Patch()
+  async updateOrder(
+    @Param() updateCriteria ,
+    @Body() order : UpdateOrderDto){
+    return await this.orderService.updateOrder(updateCriteria, order);
+  }
+
+
+ }
+
+  
+  
 
 
 
-@Delete()
-deleteOrder(){
 
-}
-
-
-}
