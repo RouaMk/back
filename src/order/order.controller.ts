@@ -1,4 +1,4 @@
-import { Controller, Post, Body , Get , Query } from '@nestjs/common';
+import { Controller, Post, Body , Get , Query, Put ,Delete } from '@nestjs/common';
 import { OrderDto } from 'src/dto/order.dto';
 import { GetPaginatedOrderDto } from 'src/dto/getPaginatedOrder.dto';
 import { OrderService } from './order.service';
@@ -28,6 +28,23 @@ export class OrderController {
     ): Order[] {
       return this.orderService.getOrders();
     }
+
+
+@Get('/:orderId')
+    getOrdersById(
+      @Query() mesQueryParams: GetPaginatedOrderDto,
+    ): Order[] {
+      return this.orderService.getOrders();
+    }    
   
-    
+@Put()
+
+
+
+@Delete()
+deleteOrder(){
+
+}
+
+
 }

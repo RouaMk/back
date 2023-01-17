@@ -1,15 +1,13 @@
-import {IsNotEmpty, IsEmail, MaxLength, IsString, IsNumber, isURL, IsOptional,} from 'class-validator';
+import {IsNotEmpty, IsEmail, MaxLength, IsString, IsNumber, isURL, IsOptional, IsEnum,} from 'class-validator';
 import { Exclude,Expose,Type,} from 'class-transformer';
+import { State } from 'src/enum/state.enum';
 
 export class OrderDto {
 
-  @IsString()
-  @Exclude()
-  retailerId: string;
 
   @IsString()
   @Exclude()
-  customerId: string;
+  orderId: string;
 
 
 
@@ -35,4 +33,8 @@ export class OrderDto {
   meeting_date: string 
 
   meeting_link: string
+
+  @IsEnum(State)
+  state: State;
+
 }

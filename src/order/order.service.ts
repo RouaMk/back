@@ -18,19 +18,24 @@ export class OrderService {
     submitForm(orderData: OrderDto): Order {
 
     const { 
-        retailerId,
-        customerId , 
         email, 
         phoneNum ,  
         description,
         cost,  
         image,
         meeting_date, 
-        meeting_link, } = orderData ;
+        meeting_link, state} = orderData ;
+
+        let orderId;
+        if (this.orders.length) {
+           orderId = this.orders[this.orders.length - 1].orderId + 1;
+        } else {
+           orderId = 1;
+        }
            
      const order ={
-        retailerId,
-        customerId , 
+   
+        orderId , 
         email, 
         phoneNum ,  
         description,
@@ -38,6 +43,7 @@ export class OrderService {
         image,
         meeting_date, 
         meeting_link,
+        state
      }
 
 
