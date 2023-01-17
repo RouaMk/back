@@ -1,5 +1,5 @@
 
-export class Form {
+export class Order {
 
     retailerId: string;
     customerId: string;   
